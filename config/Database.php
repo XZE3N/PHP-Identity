@@ -5,8 +5,8 @@ class Database {
 
     public function __construct() {
         // Load the configuration file
-        $this->config = require 'config.php'; // Adjust the path if necessary
-
+        $this->config = require 'config.php';
+        
         // Check if the config was loaded properly
         if (!is_array($this->config) || !isset($this->config['db'])) {
             throw new Exception("Configuration file is not set up correctly.");

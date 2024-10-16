@@ -8,4 +8,6 @@ $pdo = $db->getConnection();
 
 // Instantiate the user manager
 $userManager = new UserManager($pdo);
+
+print_r($userManager->getUserById(1))
 ?>

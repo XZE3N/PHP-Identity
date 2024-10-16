@@ -11,5 +11,11 @@ class UserManager {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
+
+    public function getUserByEmail($email) {
+        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE email = :email');
+        $stmt->execute(['email' => $email]);
+        return $stmt->fetch();
+    }
 }
 ?>

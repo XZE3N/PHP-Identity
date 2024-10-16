@@ -1,0 +1,2 @@
+[2024-10-16 15:27:30] Rolled back migration: 00000000000000_CreateSchema
+[2024-10-16 15:27:32] Applied migration: 00000000000000_CreateSchema
