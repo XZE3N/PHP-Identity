@@ -1,0 +1,5 @@
+{
+    "migrations": [
+        "00000000000000_CreateSchema"
+    ]
+}
