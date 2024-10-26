@@ -9,5 +9,13 @@ $pdo = $db->getConnection();
 // Instantiate the user manager
 $userManager = new UserManager($pdo);
 
-print_r($userManager->getUserById(1))
+// print_r($userManager->getUserById(4))
+
+try {
+    $userManager->createUser("andrei", "andrei@identity.com", "12345");
+    echo "User created succesfully.";
+} 
+catch (UserAlreadyExistsException $e) {
+    echo $e->getMessage();
+}
 ?>

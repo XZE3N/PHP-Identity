@@ -4,7 +4,7 @@ class CreateSchema
     public function up($pdo) {
         // SQL statement to create the users table
         $stmt = "CREATE TABLE users (
-                    id VARCHAR(255) NOT NULL PRIMARY KEY,  -- Unique identifier (string)
+                    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier (string)
                     username VARCHAR(255) NOT NULL UNIQUE,  -- Username (unique)
                     normalized_username VARCHAR(255) NOT NULL,  -- Normalized username
                     email VARCHAR(255) NOT NULL UNIQUE,  -- Email (unique)
