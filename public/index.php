@@ -18,4 +18,13 @@ try {
 catch (UserAlreadyExistsException $e) {
     echo $e->getMessage();
 }
+
+try {
+    if($userManager->userSignIn("andrei", "12345")) {
+        echo "Signed in succesfully.";
+    }
+}
+catch (FailedSignInException $e) {
+    echo $e->getMessage();
+}
 ?>

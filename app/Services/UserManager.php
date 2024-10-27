@@ -2,6 +2,8 @@
 require __DIR__ . '/../Helpers/Normalizer.php';
 
 class UserAlreadyExistsException extends Exception {}
+class UserNotFoundException extends Exception {}
+class FailedSignInException extends Exception {}
 
 class UserManager {
     private $pdo;
@@ -70,7 +72,6 @@ class UserManager {
                 :updated_at
             )'
         );
-
         $stmt->execute([
             'username' => $username,
             'normalized_username' => $normalized_username,
@@ -84,6 +85,30 @@ class UserManager {
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
+    }
+
+    public function userSignIn($username, $password) {
+        $user = $this->getUserByUsername($username);
+
+        if(!$user) {
+            throw new FailedSignInException("These credentials do not match our records.");
+            return;
+        }
+
+        if(!password_verify($password, $user['password_hash'])) {
+            throw new FailedSignInException("These credentials do not match our records.");
+            return;
+        }
+
+        // Check if the hash needs to be updated (e.g., if the algorithm or cost has changed)
+        if (password_needs_rehash($user['password_hash'], PASSWORD_DEFAULT)) {
+            $newHash = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $this->pdo->prepare("UPDATE users SET password_hash = :newHash WHERE username = :username");
+            $stmt->execute(['newHash' => $newHash, 'username' => $username]);
+        }
+
+        // TODO: Set session variable
+        return TRUE;
     }
 }
 ?>
