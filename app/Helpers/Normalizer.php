@@ -8,5 +8,18 @@ class Normalizer {
         
         return $normalized;
     }
+
+    public static function trimString($str) {
+        // Remove whitespace (spaces, tabs, newlines, etc.)
+        $str = preg_replace('/\s+/', '', $str);
+        
+        return $str;
+    }
+
+    public static function sanitizeString($str) {
+        $str = preg_replace('/[^A-Z0-9@._-]/', '', $str);
+        
+        return $str;
+    }
 }
 ?>
